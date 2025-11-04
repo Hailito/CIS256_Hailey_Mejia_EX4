@@ -4,10 +4,10 @@ def choose_random_word(words):
     """Select a random word from a predefined list."""
     return random.choice(words)
 
-def process_guess(secret_word, guessed_letters, guess):
+def process_guess(rand_word, guessed_letters, guess):
     """Return True if guess is correct, otherwise False."""
-    guessed_letters.add(guess)
-    return guess in secret_word
+    guessed_letters.add(guess.lower())
+    return guess.lower() in rand_word.lower()
 
 
 def word_guessing_game():
@@ -30,14 +30,14 @@ def word_guessing_game():
     print("You have {attempts} to guess the word.")
 
     while attempts > 0:
-        display_word = "".join([letter if letter in guessed_letters else "_" for letter in rand_word])
+        display_word = "".join([letter if letter.lower() in guessed_letters else "_" for letter in rand_word])
         print(f"\nWord: {display_word}")
 
         if display_word == rand_word:
             print("Congratulations - You guessed the word correctly!")
             break
 
-        guess = input("Guess a letter: ").lower()
+        guess = input("Guess a letter: ").strip().lower()
 
         if len(guess) != 1 or not guess.isalpha():
             print("Please enter a single letter.")
